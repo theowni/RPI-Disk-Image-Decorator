@@ -32,12 +32,28 @@ parser_umnt = subparsers.add_parser(
     'umount',
     help='umount image and clean os'
 )
+parser_umnt.add_argument(
+    '-p', '--path', action='store',
+    help='path to image file'
+)
+parser_umnt.add_argument(
+    '-m', '--mnt', action='store',
+    help='path to mounting point, default={}'.format(MNT_PATH)
+)
 parser_umnt.set_defaults(func=program.umount)
 
 # Shell command specified:
 parser_shell = subparsers.add_parser(
     'shell',
     help='spawn shell in chroot environment'
+)
+parser_shell.add_argument(
+    '-p', '--path', action='store',
+    help='path to image file'
+)
+parser_shell.add_argument(
+    '-m', '--mnt', action='store',
+    help='path to mounting point, default={}'.format(MNT_PATH)
 )
 parser_shell.set_defaults(func=program.spawn_shell)
 
