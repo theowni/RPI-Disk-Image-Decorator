@@ -13,7 +13,7 @@ This project aims to help my other rpis stuff to faster, easier, more complex pr
 ## Installation
 
 * run setup.sh
-```
+```sh
 bash setup.sh
 ```
 
@@ -22,10 +22,24 @@ If You want, firstly use Python virtualenv for keeping Python dependencies in se
 
 ## Usage
 
-There is now usage for now :)
+* Mounting image:
+```sh
+python3 rpiem.py mount -p PATH_TO_IMG
+```
 
+* Umounting image:
+```sh
+python3 rpiem.py umount
+```
+
+* Spawn shell:
+```sh
+python3 rpiem.py shell
+```
+
+More info at --help
 
 # Milestones:
-* emulate rpi using .img file in chroot environment
+* emulate rpi using .img file in chroot environment (DONE)
 * ansible support to run simple localhost playbooks
 * easy-burn command
