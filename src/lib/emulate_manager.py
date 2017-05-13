@@ -75,7 +75,7 @@ class EmulateManager:
 
         # self.run_command("sudo chroot {}".format(self.mnt_path))
         subprocess.call(
-            "sudo chroot {}".format(self.mnt_path),
+            "sudo chroot {} /bin/bash".format(self.mnt_path),
             shell=True,
         )
 
