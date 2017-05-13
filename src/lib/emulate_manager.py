@@ -69,7 +69,7 @@ class EmulateManager:
     def spawn_chroot(self):
         '''Get user to the chroot shell'''
 
-        if not os.path.ismount(self.mnt_path):
+        if not self.is_mounted():
             print('Not mount')
             return
 
@@ -96,11 +96,23 @@ class EmulateManager:
             command,
         )
 
-        subprocess.check_output(
+        subprocess.call(
             command,
             stderr=subprocess.STDOUT,
             shell=True,
         )
+
+    def upload_file(self, file_path, target_path):
+        '''Upload file to chroot specified target'''
+
+        with open(file_path, 'r') as f:
+            content = f.read()
+
+        content = content.replace('"', '\"')
+        self.run_command_remote('echo "{}" > {}'.format(
+            content,
+            target_path
+        ))
 
     def _umount_fs(self, path):
         '''Umount when mounted'''
@@ -111,3 +123,9 @@ class EmulateManager:
         self.run_command("sudo umount {}".format(
             path
         ))
+
+    def is_mounted(self):
+        if not os.path.ismount(self.mnt_path):
+            return False
+
+        return True

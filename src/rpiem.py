@@ -57,6 +57,24 @@ parser_shell.add_argument(
 )
 parser_shell.set_defaults(func=program.spawn_shell)
 
+parser_playbook = subparsers.add_parser(
+    'run_playbook',
+    help='run playbook on emulated machine'
+)
+parser_playbook.add_argument(
+    '-p', '--path', action='store',
+    help='path to image file'
+)
+parser_playbook.add_argument(
+    '-m', '--mnt', action='store',
+    help='path to mounting point, default={}'.format(MNT_PATH)
+)
+parser_playbook.add_argument(
+    '-f', '--playbook_path', action='store', required=True,
+    help='path to playbook file'
+)
+parser_playbook.set_defaults(func=program.run_playbook)
+
 if len(sys.argv) == 1:
     parser.print_help()
     sys.exit(1)

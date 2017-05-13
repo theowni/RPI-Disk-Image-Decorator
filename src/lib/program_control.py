@@ -1,5 +1,6 @@
 from .settings_manager import SettingsManager
 from .emulate_manager import EmulateManager
+from .ansible_decorator import AnsibleDecorator
 
 
 class ProgramControl:
@@ -30,6 +31,17 @@ class ProgramControl:
     def spawn_shell(self, parser_args):
         emulator = self.get_emulator(parser_args)
         emulator.spawn_chroot()
+
+    def run_playbook(self, parser_args):
+        emulator = self.get_emulator(parser_args)
+        ansible = AnsibleDecorator(emulator)
+        ansible.setup_env()
+
+        path = parser_args.playbook_path
+        print('\n-------------------\nUpload playbook\n-------------------\n')
+        remote_path = ansible.upload_playbook(path)
+        print('-------------------\nRun playbook\n-------------------')
+        ansible.run_playbook(remote_path)
 
     def get_emulator(self, parser_args):
         args = list()
