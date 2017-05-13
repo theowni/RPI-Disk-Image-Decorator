@@ -27,11 +27,6 @@ If You want, firstly use Python virtualenv for keeping Python dependencies in se
 python3 rpiem.py mount -p PATH_TO_IMG
 ```
 
-* Umounting image:
-```sh
-python3 rpiem.py umount
-```
-
 * Spawn shell:
 ```sh
 python3 rpiem.py shell
@@ -42,6 +37,11 @@ python3 rpiem.py shell
 python3 rpiem.py run_playbook -f PATH_TO_PLAYBOOK
 ```
 There is example 'Hello World' playbook at /playbooks/example.yml 
+
+* Umounting image:
+```sh
+python3 rpiem.py umount
+```
  
  
 More info at --help
