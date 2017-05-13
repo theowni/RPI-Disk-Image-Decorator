@@ -1,4 +1,4 @@
-## RPI qemu emulation for preparing burn-ready .img files 
+# RPI qemu emulation for preparing burn-ready .img files 
 
 This project aims to help my other rpis stuff to faster, easier, more complex preparing system components, burn it straight to SD card and just run.
 
@@ -37,9 +37,16 @@ python3 rpiem.py umount
 python3 rpiem.py shell
 ```
 
+* Ansible playbook:
+```sh
+python3 rpiem.py run_playbook -f PATH_TO_PLAYBOOK
+```
+There is example 'Hello World' playbook at /playbooks/example.yml 
+ 
+ 
 More info at --help
 
-# Milestones:
+## Milestones:
 * emulate rpi using .img file in chroot environment (DONE)
-* ansible support to run simple localhost playbooks
+* ansible support to run simple localhost playbooks (DONE)
 * easy-burn command
