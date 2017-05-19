@@ -105,13 +105,12 @@ class EmulateManager:
     def upload_file(self, file_path, target_path):
         '''Upload file to chroot specified target'''
 
-        with open(file_path, 'r') as f:
-            content = f.read()
+        if target_path.startswith('/'):
+            target_path = target_path[1:]
 
-        content = content.replace('"', '\"')
-        self.run_command_remote('echo "{}" > {}'.format(
-            content,
-            target_path
+        self.run_command('sudo cp {} {}'.format(
+            file_path,
+            os.path.join(MNT_PATH, target_path)
         ))
 
     def _umount_fs(self, path):

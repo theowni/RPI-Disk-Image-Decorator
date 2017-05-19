@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  tasks:
+      - name: "Create ssh file"
+        file: path=/boot/ssh state=touch
+
+      - name: "Write configurations to wpa_supplicant"
+        copy:
+          dest: /etc/wpa_supplicant/wpa_supplicant.conf
+          content: |
+                network={
+                        ssid="example_essid"
+                        psk="wifi_password"
+                }
+
+      - name: "Write configurations to interfaces"
+        copy:
+          dest: /etc/network/interfaces
+          content: |
+                source-directory /etc/network/interfaces.d
+
+                auto wlan0
+                iface lo inet loopback
+
+                iface eth0 inet manual
+
+                allow-hotplug wlan0
+                iface wlan0 inet dhcp
+                    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+                allow-hotplug wlan1
+                iface wlan1 inet manual
+                wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
