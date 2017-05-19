@@ -36,7 +36,7 @@ python3 rpiem.py shell
 ```sh
 python3 rpiem.py run_playbook -f PATH_TO_PLAYBOOK
 ```
-There is example 'Hello World' playbook at /playbooks/example.yml 
+There is example 'wifi_setup.yml' playbook at /playbooks/wifi_setup.yml 
 
 * Umounting image:
 ```sh
