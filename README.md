@@ -36,15 +36,23 @@ python3 rpiem.py shell
 ```sh
 python3 rpiem.py run_playbook -f PATH_TO_PLAYBOOK
 ```
-There is example 'wifi_setup.yml' playbook at /playbooks/wifi_setup.yml 
+There is example 'wifi_setup.yml' playbook at ./playbooks/wifi_setup.yml 
 
 * Umounting image:
 ```sh
 python3 rpiem.py umount
 ```
- 
- 
+
 More info at --help
+
+
+## WiFi raspberry setup (playbook example)
+1. Edit file at ./playbooks/wifi_setup.yml with your data
+2. While image mounted, run:
+```sh
+python3 rpiem.py run_playbook -f ../playbooks/wifi_setup.yml
+```
+ 
 
 ## Milestones:
 * emulate rpi using .img file in chroot environment (DONE)
