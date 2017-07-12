@@ -3,6 +3,7 @@ import os
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 MNT_PATH = '/mnt/rpiem'
+BOOT_PATH = '/mnt/rpiem-boot'
 
 '''
 setup internet below
@@ -24,8 +25,16 @@ class EmulateManager:
 
         self.run_command("sudo kpartx -asv {}".format(self.img_path))
         self.run_command("sudo mkdir -p {}".format(self.mnt_path))
+        self.run_command("sudo mkdir -p {}".format(BOOT_PATH))
         self.run_command("sudo mount /dev/mapper/loop0p2 {}".format(
             self.mnt_path))
+        self.run_command("sudo mount /dev/mapper/loop0p1 {}".format(
+            BOOT_PATH
+        ))
+        self.run_command("sudo mount -o bind {} {}".format(
+            BOOT_PATH,
+            os.path.join(self.mnt_path, "boot")
+        ))
         self.run_command("sudo cp /usr/bin/qemu-arm-static {}".format(
             os.path.join(self.mnt_path, "usr/bin")
         ))
@@ -57,10 +66,13 @@ class EmulateManager:
         self._umount_fs(dev_path)
         dev_path = os.path.join(self.mnt_path, "dev")
         self._umount_fs(dev_path)
-        dev_path = os.path.join(self.mnt_path, "boot")
-        self._umount_fs(dev_path)
+        boot_path = os.path.join(self.mnt_path, "boot")
+        self._umount_fs(boot_path)
+
+        self._umount_fs(BOOT_PATH)
         self._umount_fs(self.mnt_path)
 
+        self.run_command("sudo rm -rf {}".format(BOOT_PATH))
         self.run_command("sudo rm -rf {}".format(self.mnt_path))
         self.run_command("sudo kpartx -dv {}".format(self.img_path))
 
